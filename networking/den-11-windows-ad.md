@@ -1,4 +1,4 @@
-# Deň 11 — Windows Server a Active Directory
+# Deň 11 — Windows Server, Active Directory a Troubleshooting
 
 ## Čo som sa naučil
 - Active Directory (AD) je centrálna databáza používateľov a počítačov vo firme.
@@ -6,11 +6,21 @@
 - Domain Controller (DC) je server, na ktorom beží AD.
 - AD umožňuje prihlásenie rovnakým heslom na akýkoľvek počítač v doméne.
 
-## Príkazy (Linux a sieť)
-- `ip a` — zobrazí IP adresy a sieťové rozhrania.
-- `ping -c 4 google.com` — overí pripojenie na internet.
-- `cat /etc/resolv.conf` — zobrazí DNS server.
-- `smbclient -L localhost -N` — pokus o pripojenie k SMB serveru (Windows zdieľanie).
+## Praktické cvičenie (Siete)
+- `ip a` — zistil som svoju IP adresu (10.0.2.15) a bránu (10.0.2.2).
+- `cat /etc/resolv.conf` — zistil som DNS server (127.0.0.53).
+- `nslookup google.com` — overil som preklad domény na IP adresu.
+- `ping -c 4 8.8.8.8` — overil som pripojenie na internet (0% packet loss).
+- `nmap -p 80,443 localhost` — port 80 (HTTP) je otvorený, port 443 (HTTPS) je zatvorený.
+- `smbclient -L localhost -N` — vyhodilo chybu NT_STATUS_CONNECTION_REQUIRED (SMB vyžaduje overenie).
+- `ps aux | grep ssh` — nenašiel som sshd, ale gcr-ssh-agent.
+
+## Troubleshooting (Riešenie problémov)
+- Simuloval som výpadok webu (vypol som Apache cez `sudo systemctl stop apache2`).
+- Zistil som, že stránka nejde (chyba Failed to connect).
+- Skontroloval som stav služby cez `systemctl status apache2` (bolo tam inactive).
+- Opravil som to cez `sudo systemctl start apache2`.
+- Overil som, že to funguje cez `curl -I http://localhost` (vrátilo 200 OK).
 
 ## Prečo je to dôležité pre pentestera
 - AD je najčastejší cieľ útočníkov (ak hackneš AD, máš celú firmu).
